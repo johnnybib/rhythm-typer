@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!136 &1312621107
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3516439762432303643}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!1001 &2926520815823012016
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1752446130211054160, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: beatMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 2fff7b671165f3145ac49fd7acf790eb, type: 2}
+    - target: {fileID: 1752446130211054160, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: MatChangeDuration
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054251, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_Name
+      value: Groove Cylinder
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054254, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.61
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1752446130211054255, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1752446130211054252, guid: da30a4cde909cb141bdc3d8d0112ab4f, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: da30a4cde909cb141bdc3d8d0112ab4f, type: 3}
+--- !u!1 &3516439762432303643 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1752446130211054251, guid: da30a4cde909cb141bdc3d8d0112ab4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2926520815823012016}
+  m_PrefabAsset: {fileID: 0}
