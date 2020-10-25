@@ -11,12 +11,10 @@ public class TypingUI : MonoBehaviour
 
     public Color32 completedColor;
     public Color32 uncompletedColor;
-
-    void Start()
+    void Awake()
     {
         TypingInput.instance.WordUpdated += UpdateUI;
         TypingInput.instance.WordCompleted += WordCompletedHandler;
-        ClearUI();
     }
     public void UpdateUI(string completed, string uncompleted) 
     {

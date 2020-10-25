@@ -28,13 +28,17 @@ public class TypingInput : MonoBehaviour
         {
             instance = this;
         }
+        wordToType.FinishedLoading += GetFirstWord;
+        currWord = new StringBuilder ();
+    }
+    void Start()
+    {
         keyboard = Keyboard.current;
         keyboard.onTextInput += UpdateWord;
         TypingBeatChecker.instance.BeatHit += BeatHitHandler;
-        currWord = new StringBuilder ();
     }
 
-    void Start()
+    void GetFirstWord()
     {
         string currWordStr = currWord.ToString();
         WordUpdated(currWordStr, wordToType.GetLeftoverChars(currWordStr));

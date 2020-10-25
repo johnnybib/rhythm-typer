@@ -22,7 +22,6 @@ public class ComboMeter : MonoBehaviour
     {
         anim.SetTrigger("Groovin");
         beatsSinceLastPress++;
-        Debug.Log(beatsSinceLastPress);
         if(beatsSinceLastPress > 1)
         {
             ResetComboMeter();
