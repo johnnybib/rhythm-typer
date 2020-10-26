@@ -1,23 +1,19 @@
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 using System;
 public class WordToType : MonoBehaviour
 {
-    public event Action FinishedLoading = delegate { };
+    public UnityEvent FinishedLoading;
     public WordGenerator wordGen;
     public TextMeshProUGUI nextWordText;
     public string nextWord;
     public string currentWord;
-    void Awake()
-    {
-        //OK to put event listener in awake here since we know that we have the reference to wordGen already
-        wordGen.FinishedLoading += GenerateFirstWord;
-    }
-    void GenerateFirstWord()
+    public void GenerateFirstWord()
     {
         nextWord = wordGen.GetWord();
         GetNewWord();
-        FinishedLoading();
+        FinishedLoading.Invoke();
     }
     public bool IsValidString(string inputString)
     {

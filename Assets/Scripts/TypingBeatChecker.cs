@@ -36,7 +36,7 @@ public class TypingBeatChecker : MonoBehaviour
 
     private void TypingBeatHandler(double songTime)
     {
-        if(Math.Abs(songTime - beatReceivedTime) < Conductor.instance.audioLatency + fudgeAmount)
+        if(Math.Abs(songTime - beatReceivedTime) < fudgeAmount)
         {
             BeatHit();
         }
@@ -44,5 +44,11 @@ public class TypingBeatChecker : MonoBehaviour
         {
             BeatMiss();
         }
+    }
+
+    void OnDestroy()
+    {
+        Conductor.instance.SendTimedBeat -= ConductorBeatHandler;
+        TypingInput.instance.SendBeat -= TypingBeatHandler;
     }
 }

@@ -13,15 +13,17 @@ public class GrooveObject : MonoBehaviour
     private MeshRenderer mesh;
     [SerializeField]
     private float MatChangeDuration = 0.2f;
+    public bool grooveEnabled = true;
     // Start is called before the first frame update
     void Start()
     {
         Conductor.instance.SendVisualBeat += BeatHandler;
         mesh = GetComponent<MeshRenderer>();
     }
-    public void BeatHandler()
+    public void BeatHandler(double songTime)
     {
-        StartCoroutine(Beat());
+        if(grooveEnabled)
+            StartCoroutine(Beat());
     }
 
     
@@ -33,4 +35,8 @@ public class GrooveObject : MonoBehaviour
         mesh.material = defaultMat;
     }
 
+    void OnDestroy()
+    {
+        Conductor.instance.SendVisualBeat -= BeatHandler;
+    }
 }

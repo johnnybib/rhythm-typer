@@ -55,4 +55,11 @@ public class TypingBeatReceiver : MonoBehaviour
         yield return new WaitForSeconds(MatChangeDuration);
         mesh.material = defaultMat;
     }
+
+    void OnDestroy()
+    {
+        TypingInput.instance.CharCorrect -= CharCorrectHandler;
+        TypingInput.instance.CharIncorrect -= CharIncorrectHandler;
+        TypingBeatChecker.instance.BeatMiss -= BeatMissHandler;
+    }
 }

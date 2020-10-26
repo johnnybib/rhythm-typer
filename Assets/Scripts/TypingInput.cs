@@ -9,6 +9,9 @@ public class TypingInput : MonoBehaviour
 {
     public static TypingInput instance;
     private Keyboard keyboard;
+    [System.Serializable]
+    public class FinishedLoadingEvent: UnityEvent<string, string> {}
+    public FinishedLoadingEvent FinishedLoading;
     public event Action<double> SendBeat = delegate { };
     public event Action<string, string> WordUpdated = delegate { };
     public event Action CharCorrect = delegate { };
@@ -28,7 +31,6 @@ public class TypingInput : MonoBehaviour
         {
             instance = this;
         }
-        wordToType.FinishedLoading += GetFirstWord;
         currWord = new StringBuilder ();
     }
     void Start()
@@ -38,10 +40,10 @@ public class TypingInput : MonoBehaviour
         TypingBeatChecker.instance.BeatHit += BeatHitHandler;
     }
 
-    void GetFirstWord()
+    public void GetFirstWord()
     {
         string currWordStr = currWord.ToString();
-        WordUpdated(currWordStr, wordToType.GetLeftoverChars(currWordStr));
+        FinishedLoading.Invoke(currWordStr, wordToType.GetLeftoverChars(currWordStr));
     }
     void UpdateWord(char c) 
     {
@@ -88,6 +90,12 @@ public class TypingInput : MonoBehaviour
             currWordStr = currWord.ToString();
             WordUpdated(currWordStr, wordToType.GetLeftoverChars(currWordStr));            
         }
+    }
+
+    void OnDestroy()
+    {
+        keyboard.onTextInput -= UpdateWord;
+        TypingBeatChecker.instance.BeatHit -= BeatHitHandler;
     }
 
 }

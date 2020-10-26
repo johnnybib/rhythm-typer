@@ -11,11 +11,12 @@ public class TypingUI : MonoBehaviour
 
     public Color32 completedColor;
     public Color32 uncompletedColor;
-    void Awake()
+    void Start()
     {
         TypingInput.instance.WordUpdated += UpdateUI;
         TypingInput.instance.WordCompleted += WordCompletedHandler;
     }
+
     public void UpdateUI(string completed, string uncompleted) 
     {
         textBox.text = string.Format("<color=#{0}>{1}</color><color=#{2}>{3}</color>", 
@@ -33,6 +34,12 @@ public class TypingUI : MonoBehaviour
     {
         string hex = color.r.ToString("X2") + color.g.ToString("X2") + color.b.ToString("X2");
         return hex;
+    }
+
+    void OnDestroy()
+    {
+        TypingInput.instance.WordUpdated -= UpdateUI;
+        TypingInput.instance.WordCompleted -= WordCompletedHandler;
     }
 }
 

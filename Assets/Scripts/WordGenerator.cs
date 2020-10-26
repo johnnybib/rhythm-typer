@@ -5,7 +5,7 @@ using System.Collections;
 using System;
 public class WordGenerator : MonoBehaviour
 {
-    public event Action FinishedLoading = delegate { };
+    public UnityEvent FinishedLoading;
     private List<string> words;
     private TextAsset dictionary;
     // public int timeSignature;
@@ -14,7 +14,7 @@ public class WordGenerator : MonoBehaviour
     {
         dictionary = Resources.Load("dictionary", typeof(TextAsset)) as TextAsset;
         words = new List<string>(dictionary.text.Split(new[] { "\r\n", "\r", "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
-        FinishedLoading();
+        FinishedLoading.Invoke();
     }
 
     

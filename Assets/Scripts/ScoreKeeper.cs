@@ -37,5 +37,12 @@ public class ScoreKeeper : MonoBehaviour
         textBox.text = string.Format("Hits {0}, Misses {1}", hits, misses);
     }
 
+    void OnDestroy()
+    {
+        TypingInput.instance.CharCorrect -= CharCorrectHandler;
+        TypingInput.instance.CharIncorrect -= CharIncorrectHandler;
+        TypingBeatChecker.instance.BeatMiss -= BeatMissHandler;
+    }
+
 }
 

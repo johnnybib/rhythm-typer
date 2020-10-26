@@ -18,7 +18,7 @@ public class ComboMeter : MonoBehaviour
         UpdateComboMeter(0);
     }
 
-    public void BeatReceivedHandler()
+    public void BeatReceivedHandler(double songTime)
     {
         anim.SetTrigger("Groovin");
         beatsSinceLastPress++;
@@ -52,6 +52,14 @@ public class ComboMeter : MonoBehaviour
     {
         comboLevel = level;
         comboMeterText.text = string.Format("{0}X COMBO", comboLevel);
+    }
+
+    void OnDestroy()
+    {
+        Conductor.instance.SendVisualBeat -= BeatReceivedHandler;
+        TypingInput.instance.CharCorrect -= CharCorrectHandler;
+        TypingInput.instance.CharIncorrect -= CharIncorrectHandler;
+        TypingBeatChecker.instance.BeatMiss -= BeatMissHandler;    
     }
 
 }
