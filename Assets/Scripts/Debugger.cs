@@ -6,6 +6,12 @@ public class Debugger : MonoBehaviour
     {
         Conductor.instance.SendVisualBeat += VisualBeatHandler;
         Conductor.instance.SendTimedBeat += TimedBeatHandler;
+        if(TypingInput.instance)
+            TypingInput.instance.SendBeat += TypingBeatHandler;
+    }
+    private void TypingBeatHandler(double songTime)
+    {
+        Log(string.Format("Received typing beat: {0:0.000}", songTime));
     }
     private void VisualBeatHandler(double songTime)
     {

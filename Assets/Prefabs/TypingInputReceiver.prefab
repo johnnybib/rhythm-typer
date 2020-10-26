@@ -71,4 +71,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c8055a98f5b0f44c9f849758ede4610, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fudgeAmount: 0.1
+  fudgeAmount: 0.15

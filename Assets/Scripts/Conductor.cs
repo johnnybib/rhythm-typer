@@ -45,6 +45,7 @@ public class Conductor : MonoBehaviour
         {
             //Manually update song time
             songTime += AudioSettings.dspTime - previousFrameTime;
+            previousFrameTime = AudioSettings.dspTime;
             //When we get a new report from the audiosource, update our songtime by averaging
             if(audioSource.time != lastReportedPlayheadPosition)
             {
@@ -64,7 +65,6 @@ public class Conductor : MonoBehaviour
                 lastInput += secPerInput;
             }
         }
-        previousFrameTime = AudioSettings.dspTime;
     }
     public void Initialize()
     {
