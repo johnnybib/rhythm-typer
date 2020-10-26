@@ -15,9 +15,14 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("Gameplay");
     }
 
-    public void LatencySetup()
+    public void LatencyCalibration()
     {
-        SceneManager.LoadScene("Setup");
+        SceneManager.LoadScene("Latency Calibration");
+    }
+
+    public void ManualLatencySetup()
+    {
+        SceneManager.LoadScene("Manual Latency Setup");
     }
 
     public void Quit()

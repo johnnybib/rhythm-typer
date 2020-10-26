@@ -9,7 +9,8 @@ public class TypingBeatChecker : MonoBehaviour
     public event Action BeatHit = delegate { };
     public event Action BeatMiss = delegate { };
     public double fudgeAmount;
-    private double beatReceivedTime;
+    private double beatReceivedTime, typingReceivedTime;
+    private bool beatReceived, typingReceived;
 
 
     void Awake()
@@ -26,17 +27,60 @@ public class TypingBeatChecker : MonoBehaviour
     void Start()
     {
         Conductor.instance.SendTimedBeat += ConductorBeatHandler;
+        Conductor.instance.SendTimeout += TimeoutHandler;
         TypingInput.instance.SendBeat += TypingBeatHandler;
+        
     }
 
     private void ConductorBeatHandler(double songTime)
     {
         beatReceivedTime = songTime;
+        beatReceived = true;
+        // Debug.Log("Beat received at " + songTime);        
+        if(typingReceived)
+        {
+            CheckHit();
+        }
+        // Debug.Log("Beat received, diff: " + (typingReceivedTime - beatReceivedTime));
+        // if(Math.Abs(typingReceivedTime - beatReceivedTime) < fudgeAmount)
+        // {
+        //     Debug.Log("Hit");
+        //     BeatHit();
+        // }
     }
 
     private void TypingBeatHandler(double songTime)
     {
-        if(Math.Abs(songTime - beatReceivedTime) < fudgeAmount)
+        typingReceivedTime = songTime;
+        typingReceived = true;
+        // Debug.Log("Typing received at " + songTime);
+        if(beatReceived)
+        {
+            CheckHit();
+        }
+        // Debug.Log("Typing received, diff: " + (typingReceivedTime - beatReceivedTime));
+        // if(Math.Abs(typingReceivedTime - beatReceivedTime) < fudgeAmount)
+        // {
+        //     Debug.Log("Hit");
+        //     BeatHit();
+        // }
+        // else
+        // {
+        //     Debug.Log("Miss");
+        //     BeatMiss();
+        // }
+    }
+
+    private void TimeoutHandler(double songTime)
+    {
+        // Debug.Log("Timeout at " + songTime);
+        beatReceived = false;
+    }
+
+    private void CheckHit()
+    {
+        Debug.Log("Diff: " + (typingReceivedTime - beatReceivedTime));
+        if(Math.Abs(typingReceivedTime - beatReceivedTime) < fudgeAmount)
         {
             BeatHit();
         }
@@ -44,8 +88,9 @@ public class TypingBeatChecker : MonoBehaviour
         {
             BeatMiss();
         }
+        beatReceived = false;
+        typingReceived = false;
     }
-
     void OnDestroy()
     {
         Conductor.instance.SendTimedBeat -= ConductorBeatHandler;

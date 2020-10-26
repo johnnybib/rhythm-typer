@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da9834b48f799144499a1cf2e7ffaf4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  song: {fileID: 11400000, guid: 65fba1b8f17fcc342a16f120517cbf75, type: 2}
+  song: {fileID: 0}
   audioSource: {fileID: 2963894901042462378}
   songTime: 0
   allowedInputPerBeat: 2
@@ -71,6 +71,7 @@ MonoBehaviour:
   defaultMat: {fileID: 2100000, guid: ee392d2845869804cab0e9ed3eef8ba5, type: 2}
   beatMat: {fileID: 2100000, guid: a52559c7c4b3c7e4c9fa5da4c65551d2, type: 2}
   MatChangeDuration: 0.15
+  grooveEnabled: 1
 --- !u!33 &2963894901042462376
 MeshFilter:
   m_ObjectHideFlags: 0

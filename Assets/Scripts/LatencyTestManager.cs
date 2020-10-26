@@ -9,10 +9,12 @@ public class LatencyTestManager : MonoBehaviour
 {
     public Song audioTestSong;
     public Song visualTestSong;
+    public GameObject visualLatencyMetronome;
     private TestType currentTest;
     public TextMeshProUGUI messageText;
     public TextMeshProUGUI latencyText;
     public TextMeshProUGUI controlsText;
+    public GameObject skipButton;
     public LatencyCalculator latencyCalculator;
     void Awake()
     {
@@ -24,6 +26,8 @@ public class LatencyTestManager : MonoBehaviour
         latencyText.text = "";
         controlsText.text = "Start Audio Test";
         currentTest = TestType.NONE;
+        visualLatencyMetronome.gameObject.SetActive(false);
+        skipButton.SetActive(false);
     }
     public void Exit()
     {
@@ -34,24 +38,35 @@ public class LatencyTestManager : MonoBehaviour
     {
         if(currentTest == TestType.NONE)
         {
-            Conductor.instance.audioLatency = 0;
-            Conductor.instance.visualLatency = 0;
-            Conductor.instance.song = audioTestSong;
             StartAudioTest();
         }
         else if(currentTest == TestType.AUDIO)
         {
             
             SaveAudioLatency();
-            Conductor.instance.audioLatency = SaveLoad.settings.audioLatency;
-            Conductor.instance.visualLatency = 0;
-            Conductor.instance.song = visualTestSong;
             StartVisualTest();
         }
         else
         {
             latencyCalculator.StopTest();
             SaveVisualLatency();
+            Exit();
+        }
+    }
+
+    public void SkipClicked()
+    {
+        if(currentTest == TestType.NONE)
+        {
+            StartAudioTest();
+        }
+        else if(currentTest == TestType.AUDIO)
+        {
+            StartVisualTest();
+        }
+        else
+        {
+            latencyCalculator.StopTest();
             Exit();
         }
     }
@@ -68,6 +83,10 @@ public class LatencyTestManager : MonoBehaviour
 
     public void StartAudioTest()
     {
+        skipButton.SetActive(true);
+        Conductor.instance.audioLatency = 0;
+        Conductor.instance.visualLatency = 0;
+        Conductor.instance.song = audioTestSong;
         messageText.text = "Audio test: Press any key to the beat!";
         controlsText.text = "Save and Start Visual Test";
         currentTest = TestType.AUDIO;
@@ -76,7 +95,12 @@ public class LatencyTestManager : MonoBehaviour
 
     public void StartVisualTest()
     {
-        messageText.text = "Visual test: Press any key when the square flashes!";
+        skipButton.SetActive(true);
+        Conductor.instance.audioLatency = 0;
+        Conductor.instance.visualLatency = 0;
+        Conductor.instance.song = visualTestSong;
+        visualLatencyMetronome.gameObject.SetActive(true);
+        messageText.text = "Visual test: Press any key when the metronome hits and endpoint!";
         controlsText.text = "Done";
         currentTest = TestType.VISUAL;
         latencyCalculator.StartTest(currentTest);

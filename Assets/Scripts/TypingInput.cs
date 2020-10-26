@@ -18,6 +18,7 @@ public class TypingInput : MonoBehaviour
     public event Action CharIncorrect = delegate { };
     public event Action<string> WordCompleted = delegate { };
     public WordToType wordToType;
+    public bool testMode;
     private StringBuilder currWord;
     private char lastInput;
     
@@ -36,8 +37,17 @@ public class TypingInput : MonoBehaviour
     void Start()
     {
         keyboard = Keyboard.current;
-        keyboard.onTextInput += UpdateWord;
-        TypingBeatChecker.instance.BeatHit += BeatHitHandler;
+        if(testMode)
+        {
+            TypingBeatChecker.instance.BeatHit += TestModeBeatHitHandler;
+            keyboard.onTextInput += TestModeUpdateWord;
+        }
+        else
+        {
+            TypingBeatChecker.instance.BeatHit += BeatHitHandler;
+            keyboard.onTextInput += UpdateWord;
+        }
+
     }
 
     public void GetFirstWord()
@@ -45,7 +55,7 @@ public class TypingInput : MonoBehaviour
         string currWordStr = currWord.ToString();
         FinishedLoading.Invoke(currWordStr, wordToType.GetLeftoverChars(currWordStr));
     }
-    void UpdateWord(char c) 
+    private void UpdateWord(char c) 
     {
         if (c == '\n' || c == '\r')
         {
@@ -63,9 +73,15 @@ public class TypingInput : MonoBehaviour
             else
             {
                 lastInput = c;
+                Debug.Log(c);
                 SendBeat(Conductor.instance.songTime);
             }
         }
+    }
+
+    private void TestModeUpdateWord(char c)
+    {
+        SendBeat(Conductor.instance.songTime);
     }
 
     private void BeatHitHandler()
@@ -90,6 +106,11 @@ public class TypingInput : MonoBehaviour
             currWordStr = currWord.ToString();
             WordUpdated(currWordStr, wordToType.GetLeftoverChars(currWordStr));            
         }
+    }
+
+    private void TestModeBeatHitHandler()
+    {            
+        CharCorrect();
     }
 
     void OnDestroy()

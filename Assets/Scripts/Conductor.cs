@@ -10,6 +10,7 @@ public class Conductor : MonoBehaviour
 {
     public event Action<double> SendVisualBeat = delegate { };
     public event Action<double> SendTimedBeat = delegate { };
+    public event Action<double> SendTimeout = delegate { };
     public static Conductor instance;
     public Song song;
     public AudioSource audioSource;
@@ -19,9 +20,11 @@ public class Conductor : MonoBehaviour
     private double previousFrameTime = 0;
     private double lastReportedPlayheadPosition = 0;
     private double secPerInput;//Allowed seconds per beat
+    private double secPerTimeout;//Seconds before the last beat is timed out for the typing beat checker (half of sec per input)
     private double secPerBeat;//Allowed seconds per input (can allow multiple inputs per beat)
     private double lastInput;
     private double lastBeat;
+    private double lastTimeout;
     public float visualLatency;//0.15
     public float audioLatency;//0.09
 
@@ -64,6 +67,12 @@ public class Conductor : MonoBehaviour
                 SendTimedBeat(songTime);           
                 lastInput += secPerInput;
             }
+            //Send timeout to clear last beat for the typing beat checker
+            if(songTime > lastTimeout + secPerTimeout)
+            {
+                SendTimeout(songTime);           
+                lastTimeout += secPerTimeout;
+            }
         }
     }
     public void Initialize()
@@ -71,6 +80,7 @@ public class Conductor : MonoBehaviour
         audioSource.clip = song.clip;
         secPerBeat = 60f / (song.bpm);
         secPerInput = 60f / (song.bpm * (float)allowedInputPerBeat);
+        secPerTimeout = 60f / (song.bpm * (float)allowedInputPerBeat * 2);
         previousFrameTime = AudioSettings.dspTime;
         lastReportedPlayheadPosition = 0;
         lastBeat = 0;

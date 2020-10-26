@@ -23,7 +23,6 @@ public class LatencyCalculator : MonoBehaviour
         Conductor.instance.SendTimedBeat += ReceiveBeat;
         keyboard = Keyboard.current;
         keyboard.onTextInput += ReceiveKey;
-        Conductor.instance.gameObject.GetComponent<GrooveObject>().grooveEnabled = false;
         runTest = false;
     }
 
@@ -32,7 +31,6 @@ public class LatencyCalculator : MonoBehaviour
         this.testType = testType;
         if(testType == TestType.AUDIO)
         {
-            Conductor.instance.gameObject.GetComponent<GrooveObject>().grooveEnabled = false;
             Conductor.instance.Initialize();
             Conductor.instance.StartAudio();
             beatExpiryTime = (float)Conductor.instance.GetSecPerInput()*0.5f;
@@ -40,7 +38,6 @@ public class LatencyCalculator : MonoBehaviour
         }
         else   
         {
-            Conductor.instance.gameObject.GetComponent<GrooveObject>().grooveEnabled = true;
             Conductor.instance.StopAudio();
             Conductor.instance.Initialize();
             Conductor.instance.PlayNoAudio();

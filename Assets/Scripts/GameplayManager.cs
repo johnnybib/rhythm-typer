@@ -30,4 +30,9 @@ public class GameplayManager : MonoBehaviour
         Conductor.instance.Initialize();
         Conductor.instance.StartAudio();
     }
+    
+    public void Exit()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }

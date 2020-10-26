@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System;
  
 public static class SaveLoad 
 {
+    public static event Action SettingsChanged = delegate { };
     public static Settings settings;
     public static void SaveSettings() 
     {
@@ -13,6 +15,7 @@ public static class SaveLoad
         FileStream file = File.Create (Application.persistentDataPath + "/settings.gd");
         bf.Serialize(file, settings);
         file.Close();
+        SettingsChanged();
     } 
     public static void Load() 
     {
