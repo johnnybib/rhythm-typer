@@ -52,7 +52,10 @@ MonoBehaviour:
   song: {fileID: 0}
   audioSource: {fileID: 2963894901042462378}
   songTime: 0
-  allowedInputPerBeat: 2
+  checksPerBeat: 2
+  minPrecision: 0.699999988079071
+  useAbsolutePrecision: 0
+  minPrecisionAbsolute: 0.1
   visualLatency: 0.015
   audioLatency: 0.11
 --- !u!114 &2963894901042462381

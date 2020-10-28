@@ -36,6 +36,11 @@ PrefabInstance:
       propertyPath: audioLatency
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2963894901042462375, guid: eb5d118bf2a3aea4fb45d6bf98dc02c0,
+        type: 3}
+      propertyPath: minPrecision
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2963894901042462378, guid: eb5d118bf2a3aea4fb45d6bf98dc02c0,
         type: 3}
       propertyPath: m_audioClip

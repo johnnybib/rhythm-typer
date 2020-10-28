@@ -18,6 +18,9 @@ public class GameplayManager : MonoBehaviour
     {
         Conductor.instance.audioLatency = SaveLoad.settings.audioLatency;
         Conductor.instance.visualLatency = SaveLoad.settings.visualLatency;
+        Conductor.instance.minPrecision = SaveLoad.settings.relativePrecision;
+        Conductor.instance.minPrecisionAbsolute = SaveLoad.settings.absolutePrecision;
+        Conductor.instance.useAbsolutePrecision = SaveLoad.settings.useAbsolutePrecision;
         gameplayUI.SetActive(false);
     }
 

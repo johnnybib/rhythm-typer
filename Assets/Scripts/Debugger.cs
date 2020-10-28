@@ -1,33 +1,59 @@
-using UnityEngine;
+using UnityEngine;  
+using System.Collections;
 public class Debugger : MonoBehaviour
 {
-    public bool doDebug;
+    public bool showLogInConsole;
     void Start()
     {
         Conductor.instance.SendVisualBeat += VisualBeatHandler;
-        Conductor.instance.SendTimedBeat += TimedBeatHandler;
-        if(TypingInput.instance)
-            TypingInput.instance.SendBeat += TypingBeatHandler;
+        Conductor.instance.BeatHit += BeatHitHandler;
+        Conductor.instance.BeatMiss += BeatMissHandler;
+        Conductor.instance.SendDebugBeat += DebugBeatHandler;
     }
-    private void TypingBeatHandler(double songTime)
-    {
-        Log(string.Format("Received typing beat: {0:0.000}", songTime));
-    }
+
     private void VisualBeatHandler(double songTime)
     {
         Log(string.Format("Received visual beat: {0:0.000}", songTime));
     }
     
-    private void TimedBeatHandler(double songTime)
+    private void BeatHitHandler(double diff)
     {
-        Log(string.Format("Received timed beat: {0:0.000}", songTime));
+        Grapher.Log(1, "beatHit", Color.green);
+        StartCoroutine(SetGraphToZero("beatHit", Color.green));
+        Log(string.Format("Received beat hit: {0:0.000}", Conductor.instance.songTime));
     }
+    private void BeatMissHandler(double diff)
+    {
+        Grapher.Log(1, "beatMiss", Color.red);
+        StartCoroutine(SetGraphToZero("beatMiss", Color.red));
+        Log(string.Format("Received beat miss: {0:0.000}", Conductor.instance.songTime));
+    }
+
+    private void DebugBeatHandler(string name, double songTime, Color color)
+    {
+        Grapher.Log(0.5f, name, color);
+        StartCoroutine(SetGraphToZero(name, color));
+        Log(string.Format("Received debug beat: {0:0.000}", songTime));
+
+    }
+
+    private IEnumerator SetGraphToZero(string graph, Color color)
+    {
+        yield return new WaitForSeconds(0.001f);
+        Grapher.Log(0, graph, color);
+    }
+
 
     private void Log(string logMsg)
     {
-        if(doDebug)
+        if(showLogInConsole)
             Debug.Log(logMsg);
     }
-
-    
+    void OnDestroy()
+    {
+        Conductor.instance.SendVisualBeat -= VisualBeatHandler;
+        Conductor.instance.BeatHit -= BeatHitHandler;
+        Conductor.instance.BeatMiss -= BeatMissHandler;
+        Conductor.instance.SendDebugBeat -= DebugBeatHandler;
+    }   
 }

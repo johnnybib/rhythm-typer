@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.SceneManagement;
+public enum TestType {AUDIO, VISUAL, NONE}
 
 public class LatencyTestManager : MonoBehaviour
 {
@@ -84,31 +85,45 @@ public class LatencyTestManager : MonoBehaviour
     public void StartAudioTest()
     {
         skipButton.SetActive(true);
+
         Conductor.instance.audioLatency = 0;
         Conductor.instance.visualLatency = 0;
         Conductor.instance.song = audioTestSong;
+
         messageText.text = "Audio test: Press any key to the beat!";
         controlsText.text = "Save and Start Visual Test";
+
         currentTest = TestType.AUDIO;
-        latencyCalculator.StartTest(currentTest);
+
+        Conductor.instance.Initialize();
+        Conductor.instance.StartAudio();
+        latencyCalculator.StartTest();
     }
 
     public void StartVisualTest()
     {
         skipButton.SetActive(true);
+        visualLatencyMetronome.gameObject.SetActive(true);
+
         Conductor.instance.audioLatency = 0;
         Conductor.instance.visualLatency = 0;
         Conductor.instance.song = visualTestSong;
-        visualLatencyMetronome.gameObject.SetActive(true);
+        
         messageText.text = "Visual test: Press any key when the metronome hits and endpoint!";
         controlsText.text = "Done";
+
         currentTest = TestType.VISUAL;
-        latencyCalculator.StartTest(currentTest);
+
+        Conductor.instance.StopAudio();
+        Conductor.instance.Initialize();
+        Conductor.instance.PlayNoAudio();
+
+        latencyCalculator.StartTest();
     }
 
     void Update()
     {
         if(currentTest != TestType.NONE)
-            latencyText.text = string.Format("Latency: {0:0.000} s", latencyCalculator.GetCurrentLatency());
+            latencyText.text = string.Format("Latency: {0:0.000} s. Samples: {1}", latencyCalculator.GetCurrentLatency(), latencyCalculator.GetNumSamples());
     }
 }

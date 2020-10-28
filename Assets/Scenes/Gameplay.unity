@@ -195,7 +195,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 1.7645e-41, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 5.96e-43, w: 4e-45}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1254,6 +1254,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Conductor
       objectReference: {fileID: 0}
+    - target: {fileID: 2963894901042462375, guid: eb5d118bf2a3aea4fb45d6bf98dc02c0,
+        type: 3}
+      propertyPath: useAbsolutePrecision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963894901042462375, guid: eb5d118bf2a3aea4fb45d6bf98dc02c0,
+        type: 3}
+      propertyPath: minPrecisionAbsolute
+      value: 0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 2963894901042462379, guid: eb5d118bf2a3aea4fb45d6bf98dc02c0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1318,11 +1328,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3232459865536945892, guid: 5396403caf09bd24abba55ff153f6b11,
-        type: 3}
-      propertyPath: doDebug
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3232459865536945893, guid: 5396403caf09bd24abba55ff153f6b11,
         type: 3}
       propertyPath: m_Name

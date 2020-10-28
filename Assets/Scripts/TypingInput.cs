@@ -39,15 +39,14 @@ public class TypingInput : MonoBehaviour
         keyboard = Keyboard.current;
         if(testMode)
         {
-            TypingBeatChecker.instance.BeatHit += TestModeBeatHitHandler;
+            Conductor.instance.BeatHit += TestModeBeatHitHandler;
             keyboard.onTextInput += TestModeUpdateWord;
         }
         else
         {
-            TypingBeatChecker.instance.BeatHit += BeatHitHandler;
+            Conductor.instance.BeatHit += BeatHitHandler;
             keyboard.onTextInput += UpdateWord;
         }
-
     }
 
     public void GetFirstWord()
@@ -73,7 +72,6 @@ public class TypingInput : MonoBehaviour
             else
             {
                 lastInput = c;
-                Debug.Log(c);
                 SendBeat(Conductor.instance.songTime);
             }
         }
@@ -84,7 +82,7 @@ public class TypingInput : MonoBehaviour
         SendBeat(Conductor.instance.songTime);
     }
 
-    private void BeatHitHandler()
+    private void BeatHitHandler(double diff)
     {
         currWord.Append(lastInput);
         string currWordStr = currWord.ToString();
@@ -108,7 +106,7 @@ public class TypingInput : MonoBehaviour
         }
     }
 
-    private void TestModeBeatHitHandler()
+    private void TestModeBeatHitHandler(double diff)
     {            
         CharCorrect();
     }
@@ -116,7 +114,9 @@ public class TypingInput : MonoBehaviour
     void OnDestroy()
     {
         keyboard.onTextInput -= UpdateWord;
-        TypingBeatChecker.instance.BeatHit -= BeatHitHandler;
+        Conductor.instance.BeatHit -= BeatHitHandler;
+        Conductor.instance.BeatHit -= TestModeBeatHitHandler;
+        keyboard.onTextInput -= TestModeUpdateWord;
     }
 
 }

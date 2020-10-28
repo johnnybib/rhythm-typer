@@ -12,7 +12,7 @@ public class ScoreKeeper : MonoBehaviour
     {
         TypingInput.instance.CharCorrect += CharCorrectHandler;
         TypingInput.instance.CharIncorrect += CharIncorrectHandler;
-        TypingBeatChecker.instance.BeatMiss += BeatMissHandler;
+        Conductor.instance.BeatMiss += BeatMissHandler;
     }
     public void CharCorrectHandler()
     {
@@ -26,7 +26,7 @@ public class ScoreKeeper : MonoBehaviour
         UpdateUI();
     }
 
-    public void BeatMissHandler()
+    public void BeatMissHandler(double diff)
     {
         misses++;
         UpdateUI();
@@ -41,7 +41,7 @@ public class ScoreKeeper : MonoBehaviour
     {
         TypingInput.instance.CharCorrect -= CharCorrectHandler;
         TypingInput.instance.CharIncorrect -= CharIncorrectHandler;
-        TypingBeatChecker.instance.BeatMiss -= BeatMissHandler;
+        Conductor.instance.BeatMiss -= BeatMissHandler;
     }
 
 }

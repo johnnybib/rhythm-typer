@@ -15,12 +15,12 @@ public class VisualLatencyMetronome : MonoBehaviour
         if(onLeft)
         {
             stickTransform.localRotation = Quaternion.RotateTowards(stickTransform.localRotation, rightRotation, 
-                90f * Time.deltaTime/(float)Conductor.instance.GetSecPerInput());
+                90f * (float)Conductor.instance.GetLastFrameDSPTime()/(float)Conductor.instance.GetSecPerBeat());
         }
         else
         {
             stickTransform.localRotation = Quaternion.RotateTowards(stickTransform.localRotation, leftRotation, 
-                90f * Time.deltaTime/(float)Conductor.instance.GetSecPerInput());
+                90f * (float)Conductor.instance.GetLastFrameDSPTime()/(float)Conductor.instance.GetSecPerBeat());
         }
     }
     private void BeatHandler(double songTime)

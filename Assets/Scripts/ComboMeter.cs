@@ -13,7 +13,7 @@ public class ComboMeter : MonoBehaviour
         Conductor.instance.SendVisualBeat += BeatReceivedHandler;
         TypingInput.instance.CharCorrect += CharCorrectHandler;
         TypingInput.instance.CharIncorrect += CharIncorrectHandler;
-        TypingBeatChecker.instance.BeatMiss += BeatMissHandler;    
+        Conductor.instance.BeatMiss += BeatMissHandler;    
         beatsSinceLastPress = 0;
         UpdateComboMeter(0);
     }
@@ -37,7 +37,7 @@ public class ComboMeter : MonoBehaviour
     {
         ResetComboMeter();
     }
-    public void BeatMissHandler()
+    public void BeatMissHandler(double diff)
     {
         ResetComboMeter();
     }
@@ -59,7 +59,7 @@ public class ComboMeter : MonoBehaviour
         Conductor.instance.SendVisualBeat -= BeatReceivedHandler;
         TypingInput.instance.CharCorrect -= CharCorrectHandler;
         TypingInput.instance.CharIncorrect -= CharIncorrectHandler;
-        TypingBeatChecker.instance.BeatMiss -= BeatMissHandler;    
+        Conductor.instance.BeatMiss -= BeatMissHandler;    
     }
 
 }

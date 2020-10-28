@@ -23,7 +23,7 @@ public class TypingBeatReceiver : MonoBehaviour
         mesh = GetComponent<MeshRenderer>();
         TypingInput.instance.CharCorrect += CharCorrectHandler;
         TypingInput.instance.CharIncorrect += CharIncorrectHandler;
-        TypingBeatChecker.instance.BeatMiss += BeatMissHandler;
+        Conductor.instance.BeatMiss += BeatMissHandler;
     }
     public void CharCorrectHandler()
     {
@@ -34,9 +34,9 @@ public class TypingBeatReceiver : MonoBehaviour
 
     public void CharIncorrectHandler()
     {
-        BeatMissHandler();
+        BeatMissHandler(1);
     }
-    public void BeatMissHandler()
+    public void BeatMissHandler(double diff)
     {
         mesh.material = missMat;
         anim.SetTrigger("Miss");
@@ -60,6 +60,6 @@ public class TypingBeatReceiver : MonoBehaviour
     {
         TypingInput.instance.CharCorrect -= CharCorrectHandler;
         TypingInput.instance.CharIncorrect -= CharIncorrectHandler;
-        TypingBeatChecker.instance.BeatMiss -= BeatMissHandler;
+        Conductor.instance.BeatMiss -= BeatMissHandler;
     }
 }

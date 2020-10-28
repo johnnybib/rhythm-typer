@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddb5f8b99dbc8c44da68260d4ac04f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doDebug: 1
+  showLogInConsole: 0
